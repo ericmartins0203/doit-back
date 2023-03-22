@@ -38,9 +38,7 @@ class UserService {
         return this.userRepository.save(newUserPayload)
       }
 
-    async login (email: string, password: string) {
-        const userService = new UserService()
-  
+    async login (email: string, password: string) {  
         const user = await this.userRepository.findOne({ where: {email}})
   
         if (!user) {
@@ -56,7 +54,7 @@ class UserService {
         const secret = process.env.SECRET_KEY || 'secret'
         const expiresIn = process.env.EXPIRES_IN || '4h'
   
-        const token = jwt.sign(
+        const accessToken = jwt.sign(
           { email: user.email },
           secret,
           {
@@ -65,7 +63,7 @@ class UserService {
         )
   
         return {
-          token
+			accessToken, user
         }
       }
 

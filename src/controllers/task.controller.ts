@@ -24,10 +24,35 @@ class TaskController {
     }
 
     public static async list (req: Request, res: Response) {
-        const { decoded } = req
         try {
-            const user = await userService.get(decoded as string)
-            return await taskService.list(user as User)
+            const list =await taskService.list()
+            res.status(HTTP_STATUS.OK).json(list)
+        }catch (e) {
+            if (e instanceof Error) {
+                res.status(HTTP_STATUS.BAD_REQUEST).json(e.message)
+            }
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json('e')
+        }
+    }
+
+    public static async update (req: Request, res: Response) {
+        const { id } = req.params
+        const { body } = req
+        try {
+            const updated = await taskService.complete(id, body)
+            res.status(HTTP_STATUS.OK).json(updated)
+        }catch (e) {
+            if (e instanceof Error) {
+                res.status(HTTP_STATUS.BAD_REQUEST).json(e.message)
+            }
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json('e')
+        }
+    }
+
+    public static async delete (req: Request, res: Response) {
+        const { id } = req.params
+        try {
+            return await taskService.delete(id)
         }catch (e) {
             if (e instanceof Error) {
                 res.status(HTTP_STATUS.BAD_REQUEST).json(e.message)

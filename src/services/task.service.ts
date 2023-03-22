@@ -23,14 +23,28 @@ class TaskService {
         return this.taskRepository.save(newTaskPayload)
     }
 
-    async list (user: User) : Promise<Task[]> {
+    async list () : Promise<Task[]> {
   
-        const list = this.taskRepository.find({
-            where: {
-                user
-            }
-        })
+        const list = this.taskRepository.find()
         return list
+    }
+
+    async complete (id: string, data: {completed:boolean}) : Promise<Task| null> {
+        const task = await this.taskRepository.findOne({where:{id}})
+
+        if(!task){
+            throw new Error("Id não encontrado")
+        }
+
+        const updatedTask = this.taskRepository.create({...task, ...data})
+
+        await this.taskRepository.save(updatedTask)
+        return updatedTask
+    }
+
+    async delete (id: string) {
+        this.taskRepository.delete({ id })
+        return
     }
 }
 

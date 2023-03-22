@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from "typeorm"
 import { User } from "./User";
 
 @Entity()
@@ -6,7 +6,10 @@ export class Task {
 
     @PrimaryGeneratedColumn("uuid")
     id: string
-
+    
+    @CreateDateColumn()
+    createDate: string
+    
     @Column()
     title: string
     
@@ -15,7 +18,8 @@ export class Task {
     
     @Column({default: false})
     completed: boolean
+
     
-    @ManyToOne((type) => User, (user) => user.id)
+    @ManyToOne((type) => User, (user) => user.id, {onDelete: "CASCADE"})
     user: User;
 }

@@ -9,13 +9,13 @@ Steps to run this project:
 
 ## Rotas e Endpoints
 
-| Methods | Endpoint                                                                  | Responsability                                    |
-| ------- | ------------------------------------------------------------------------- | ------------------------------------------------- |
-| POST    | [/user]                                   | Cadastro de usuário.                              |
-| GET    | [/user]                                   | Lista usuários cadastrados.                              |
-| GET    | [/user/:id]                                   | Pegar um usuário.                              |
-| PATCH    | [/user/:id]                                   | Atualiza dados do usuário.                              |
-| DELETE    | [/user/:id]                                   | Deleta usuário.                              |
+| Methods | Endpoint     | Responsability                                    | Bearer Token |
+| ------- | -------------| ------------------------------------------------- | ------------ |
+| POST    | [/user]      | Cadastro de usuário.                              | Não precisa  |
+| POST    | [/user/login]| Login com o usuário.                              | Não precisa  |
+| GET     | [/user]      | Pegar os dados do usuário.                        | precisa      |
+| PATCH   | [/user]      | Atualiza dados do usuário.                        | precisa      |
+| POST    | [/task]      | Cria novas tarefas                                | precisa      |
 -------
 
 
