@@ -27,7 +27,7 @@ class UserService {
           	throw new Error("Email already exists")
         }
   
-        const SALTS = 10
+        const SALTS = process.env.SALT || 10 
   
         const newUserPayload = {
             name,
