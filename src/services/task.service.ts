@@ -24,9 +24,7 @@ class TaskService {
     }
 
     async list () : Promise<Task[]> {
-  
-        const list = this.taskRepository.find()
-        return list
+        return this.taskRepository.find()
     }
 
     async complete (id: string, data: {completed:boolean}) : Promise<Task| null> {
